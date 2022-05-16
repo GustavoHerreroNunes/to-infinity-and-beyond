@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sprites>
+    <rocket>
+        <icon id="rocket-0">
+            <direction>Right</direction>
+            <coordX>0</coordX>
+            <coordY>0</coordY>
+            <height unit="px">70</height>
+            <width unit="px">128</width>
+        </icon>
+        <icon id="rocket-1">
+            <direction>Left</direction>
+            <coordX>0</coordX>
+            <coordY>81</coordY>
+            <height unit="px">70</height>
+            <width unit="px">128</width>
+        </icon>
+        <icon id="rocket-2">
+            <direction>Down</direction>
+            <coordX>28</coordX>
+            <coordY>163</coordY>
+            <height unit="px">128</height>
+            <width unit="px">70</width>
+        </icon>
+        <icon id="rocket-3">
+            <direction>Top</direction>
+            <coordX>28</coordX>
+            <coordY>302</coordY>
+            <height unit="px">128</height>
+            <width unit="px">67</width>
+        </icon>
+    </rocket>
+    
+    <spaceship>
+        <icon id="spaceship-0">
+            <direction>Right</direction>
+            <coordX>164</coordX>
+            <coordY>0</coordY>
+            <height unit="px">95</height>
+            <width unit="px">83</width>
+        </icon>
+        <icon id="spaceship-1">
+            <direction>Left</direction>
+            <coordX>164</coordX>
+            <coordY>106</coordY>
+            <height unit="px">95</height>
+            <width unit="px">83</width>
+        </icon>
+        <icon id="spaceship-2">
+            <direction>Down</direction>
+            <coordX>158</coordX>
+            <coordY>212</coordY>
+            <height unit="px">83</height>
+            <width unit="px">95</width>
+        </icon>
+        <icon id="spaceship-3">
+            <direction>Top</direction>
+            <coordX>158</coordX>
+            <coordY>306</coordY>
+            <height unit="px">83</height>
+            <width unit="px">95</width>
+        </icon>
+    </spaceship>
+
+    <ufo>
+        <icon id="ufo-0">
+            <direction>Right</direction>
+            <coordX>278</coordX>
+            <coordY>0</coordY>
+            <height unit="px">101</height>
+            <width unit="px">94</width>
+        </icon>
+        <icon id="ufo-1">
+            <direction>Left</direction>
+            <coordX>278</coordX>
+            <coordY>112</coordY>
+            <height unit="px">101</height>
+            <width unit="px">94</width>
+        </icon>
+        <icon id="ufo-2">
+            <direction>Down</direction>
+            <coordX>278</coordX>
+            <coordY>225</coordY>
+            <height unit="px">94</height>
+            <width unit="px">101</width>
+        </icon>
+        <icon id="ufo-3">
+            <direction>Top</direction>
+            <coordX>278</coordX>
+            <coordY>331</coordY>
+            <height unit="px">94</height>
+            <width unit="px">101</width>
+        </icon>
+    </ufo>
+
+    <asteroid>
+        <icon id="asteroid-0">
+            <coordX>421</coordX>
+            <coordY>0</coordY>
+            <height unit="px">78</height>
+            <width unit="px">78</width>
+        </icon>
+        <icon id="asteroid-1">
+            <coordX>421</coordX>
+            <coordY>89</coordY>
+            <height unit="px">78</height>
+            <width unit="px">78</width>
+        </icon>
+        <icon id="asteroid-2">
+            <coordX>423</coordX>
+            <coordY>178</coordY>
+            <height unit="px">78</height>
+            <width unit="px">76</width>
+        </icon>
+        <icon id="asteroid-3">
+            <coordX>414</coordX>
+            <coordY>267</coordY>
+            <height unit="px">95</height>
+            <width unit="px">95</width>
+        </icon>
+    </asteroid>
+
+    <background>
+        <image id="bg-0">
+            <coordX>545</coordX>
+            <coordY>0</coordY>
+            <height unit="px">166</height>
+            <width unit="px">158</width>
+        </image>
+    </background>
+</sprites>
