@@ -15,6 +15,7 @@ const game = {
     },
 
     update: () => {
+        background.update();
         playerSpaceShip.update();
     },
 
@@ -64,7 +65,24 @@ const background = {
     },
 
     update: () => {
+        background.screenPosition.forEach( (bgRow) => {
+            bgRow.forEach( (bgUnity) => {
+                bgUnity.x -= 2.5;
+            });
+        });
 
+        if((background.screenPosition[0][5].x + background.sourcePosition.width) == 800){
+            let coordY = 0;
+            background.screenPosition.forEach( (bgRow) => {
+                bgRow.push({x:800, y: coordY});
+                coordY+=166;
+            });
+        }
+        if((background.screenPosition[0][0].x + background.sourcePosition.width) <= -158){
+            background.screenPosition.forEach( (bgRow) => {
+                bgRow.shift();
+            });
+        }
     }
 }
 
