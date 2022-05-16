@@ -19,6 +19,8 @@ const game = {
     },
 
     paint: () => {
+        game.context.clearRect(0, 0, 800, 400);
+        background.paint();
         playerSpaceShip.paint();
     },
 
@@ -33,6 +35,36 @@ const game = {
         }else{
             cancelAnimationFrame(game.animationFrameId);
         }
+    }
+}
+
+const background = {
+    sourcePosition:{
+        x: 545, y:0,
+        height: 166, width:158
+    },
+    screenPosition:[
+        [{x:0, y:0}, {x:158, y:0}, {x:316, y:0}, {x:474, y:0}, {x:632, y:0}, {x:790, y:0}],
+        [{x:0, y:166}, {x:158, y:166}, {x:316, y:166}, {x:474, y:166}, {x:632, y:166}, {x:790, y:166}],
+        [{x:0, y:332}, {x:158, y:332}, {x:316, y:332}, {x:474, y:332}, {x:632, y:332}, {x:790, y:332}]
+    ],
+
+    paint: () => {
+        background.screenPosition.forEach( (bgRow) => {
+            bgRow.forEach( (bgUnity) => {
+                game.context.drawImage(
+                    game.sprite,
+                    background.sourcePosition.x, background.sourcePosition.y,
+                    background.sourcePosition.width, background.sourcePosition.height,
+                    bgUnity.x, bgUnity.y,
+                    background.sourcePosition.width, background.sourcePosition.height,
+                );
+            });
+        });
+    },
+
+    update: () => {
+
     }
 }
 
@@ -56,7 +88,6 @@ const playerSpaceShip = {
     },
 
     paint: () => {
-        game.context.clearRect(0, 0, 800, 400);
         game.context.drawImage(
             game.sprite,
             playerSpaceShip.sourcePosition.x, playerSpaceShip.sourcePosition.y,
