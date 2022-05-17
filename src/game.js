@@ -8,10 +8,32 @@ const game = {
         game.context = game.canvas.getContext('2d');
         game.sprite = new Image();
         game.sprite.onload = () => {
-            game.isGamePlaying = true;
-            game.loop()
+            game.requestXMLDocument();
         };
         game.sprite.src = "src/img/Sprites.png";
+    },
+
+    requestXMLDocument: () => {
+        game.httpRequest = new XMLHttpRequest();
+        if(!game.httpRequest) return (false);
+        
+        game.httpRequest.onreadystatechange = () => {
+            console.log("Ready Stage mudou");
+            if(game.httpRequest.readyStage === XMLHttpRequest.DONE){
+                if(game.httpRequest.status === 200){
+                    game.XMLSprite = game.httpRequest.responseXML;
+                    game.isGamePlaying = true;
+                    game.loop();
+                    return true;
+                }else{
+                    console.log("Erro com a requisição HTTP - Status",game.httpRequest.status);
+                }
+            }else{
+                console.log("Erro com a requisição HTTP - Ready Stage",game.httpRequest.readyStage);
+            }
+        }
+        game.httpRequest.open('GET', './src/sprites.xml');
+        game.httpRequest.send();
     },
 
     update: () => {
