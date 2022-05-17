@@ -1,3 +1,36 @@
+const XMLSprite = {
+
+    requestXMLDocument: () => {
+        XMLSprite.httpRequest = new XMLHttpRequest();
+        if(!XMLSprite.httpRequest) console.log("Erro ao instânciar objeto HTTP");
+        
+        XMLSprite.httpRequest.onreadystatechange = () => {
+            console.log("Ready State mudou");
+
+            if(XMLSprite.httpRequest.readyState == XMLHttpRequest.DONE){
+                if(XMLSprite.httpRequest.status === 200){
+                    XMLSprite.responseHttp = XMLSprite.httpRequest.responseXML;
+                    XMLSprite.rootElement = XMLSprite.responseHttp.documentElement;
+                    game.isGamePlaying = true;
+                    game.loop();
+                }else{
+                    console.log("Erro com a requisição HTTP - Status", XMLSprite.httpRequest.status);
+                }
+            }else{
+                console.log("Requisição HTTP",(XMLSprite.httpRequest.readyState == 0) ? "não iniciada." : 
+                                               (XMLSprite.httpRequest.readyState == 1) ? "aguardando, com conexão estabelecidada com o server." :
+                                               (XMLSprite.httpRequest.readyState == 2) ? "recebida." :
+                                               (XMLSprite.httpRequest.readyState == 3) ? "sendo processada." :
+                                               "com estado desconhecido: " + XMLSprite.httpRequest.readyState);
+            }
+        }
+        XMLSprite.httpRequest.open('GET', 'src/sprites.xml');
+        XMLSprite.httpRequest.send();
+    },
+
+
+};
+
 const game = {
 
     animationFrameId: 0,
@@ -8,42 +41,17 @@ const game = {
         game.context = game.canvas.getContext('2d');
         game.sprite = new Image();
         game.sprite.onload = () => {
-            game.requestXMLDocument();
+            XMLSprite.requestXMLDocument();
         };
         game.sprite.src = "src/img/Sprites.png";
     },
 
-    requestXMLDocument: () => {
-        game.httpRequest = new XMLHttpRequest();
-        if(!game.httpRequest) return (false);
-        
-        game.httpRequest.onreadystatechange = () => {
-            console.log("Ready Stage mudou");
-            if(game.httpRequest.readyStage === XMLHttpRequest.DONE){
-                if(game.httpRequest.status === 200){
-                    game.XMLSprite = game.httpRequest.responseXML;
-                    game.isGamePlaying = true;
-                    game.loop();
-                    return true;
-                }else{
-                    console.log("Erro com a requisição HTTP - Status",game.httpRequest.status);
-                }
-            }else{
-                console.log("Erro com a requisição HTTP - Ready Stage",game.httpRequest.readyStage);
-            }
-        }
-        game.httpRequest.open('GET', './src/sprites.xml');
-        game.httpRequest.send();
-    },
-
     update: () => {
-        background.update();
         playerSpaceShip.update();
     },
 
     paint: () => {
         game.context.clearRect(0, 0, 800, 400);
-        background.paint();
         playerSpaceShip.paint();
     },
 
