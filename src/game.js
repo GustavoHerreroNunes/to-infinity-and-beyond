@@ -8,15 +8,18 @@ const game = {
         game.context = game.canvas.getContext('2d');
         game.sprite = new Image();
         game.sprite.onload = () => {
+            playerSpaceShip.screenPosition.y = (game.canvas.height * 0.5) - (playerSpaceShip.screenPosition.height/2);
             game.isGamePlaying = true;
             game.loop()
         };
         game.sprite.src = "src/img/Sprites.png";
+        window.onkeydown = playerSpaceShip.changeCurrentMove;
+        window.onkeyup = playerSpaceShip.changeCurrentMove;
     },
 
     update: () => {
-        background.update();
         playerSpaceShip.update();
+        background.update();
     },
 
     paint: () => {
@@ -72,8 +75,6 @@ const background = {
         });
 
         if((background.screenPosition[0][(background.screenPosition[0].length - 1)].x + background.sourcePosition.width) == 800){
-            console.log("Background - Adicionando outra coluna");
-            
             let coordY = 0;
             background.screenPosition.forEach( (bgRow) => {
                 bgRow.push({x:800, y: coordY});
@@ -81,8 +82,6 @@ const background = {
             });
         }
         if((background.screenPosition[0][0].x + background.sourcePosition.width) <= -158){
-            console.log("Background - Excluindo a primeira coluna");
-            
             background.screenPosition.forEach( (bgRow) => {
                 bgRow.shift();
             });
@@ -100,14 +99,49 @@ const playerSpaceShip = {
         height: 70 * 0.5, width: 128 * 0.5
     },
 
-    update: () => {
-        if((playerSpaceShip.screenPosition.x + playerSpaceShip.screenPosition.width) < game.canvas.width){
-            playerSpaceShip.screenPosition.x += 2;
+    speed: 4,
+    currentMove: {
+        toLeft: false,
+        toTop: false,
+        toBottom: false,
+        toRight: false
+    },
+
+    changeCurrentMove: (keyPressed) => {
+        let isMoveStart = (keyPressed.type == "keydown");
+        switch(keyPressed.keyCode){
+            case 37:// ← 
+            case 65:// a
+                playerSpaceShip.currentMove.toLeft = isMoveStart;
+                break;
+            case 38:// ↑
+            case 87://  w
+                playerSpaceShip.currentMove.toTop = isMoveStart;
+                break;
+            case 39:// →
+            case 68://d
+                playerSpaceShip.currentMove.toRight = isMoveStart;
+                break;
+            case 40:// ↓ 
+            case 83:// s
+                playerSpaceShip.currentMove.toBottom = isMoveStart;
+                break;
         }
-        // else{
-        //     console.log("Cancelando loop");
-        //     game.isGamePlaying = false;
-        // }
+    },
+
+    update: () => {
+        if(playerSpaceShip.currentMove.toLeft){
+            playerSpaceShip.screenPosition.x -= playerSpaceShip.speed;
+        }
+        if(playerSpaceShip.currentMove.toTop){
+            playerSpaceShip.screenPosition.y -= playerSpaceShip.speed;
+        }
+        if(playerSpaceShip.currentMove.toBottom){
+            playerSpaceShip.screenPosition.y += playerSpaceShip.speed;
+        }
+        if(playerSpaceShip.currentMove.toRight){
+            playerSpaceShip.screenPosition.x += playerSpaceShip.speed;
+        }
     },
 
     paint: () => {
