@@ -67,11 +67,13 @@ const background = {
     update: () => {
         background.screenPosition.forEach( (bgRow) => {
             bgRow.forEach( (bgUnity) => {
-                bgUnity.x -= 2.5;
+                bgUnity.x -= 2;
             });
         });
 
-        if((background.screenPosition[0][5].x + background.sourcePosition.width) == 800){
+        if((background.screenPosition[0][(background.screenPosition[0].length - 1)].x + background.sourcePosition.width) == 800){
+            console.log("Background - Adicionando outra coluna");
+            
             let coordY = 0;
             background.screenPosition.forEach( (bgRow) => {
                 bgRow.push({x:800, y: coordY});
@@ -79,6 +81,8 @@ const background = {
             });
         }
         if((background.screenPosition[0][0].x + background.sourcePosition.width) <= -158){
+            console.log("Background - Excluindo a primeira coluna");
+            
             background.screenPosition.forEach( (bgRow) => {
                 bgRow.shift();
             });
@@ -98,11 +102,12 @@ const playerSpaceShip = {
 
     update: () => {
         if((playerSpaceShip.screenPosition.x + playerSpaceShip.screenPosition.width) < game.canvas.width){
-            playerSpaceShip.screenPosition.x += 2.5;
-        }else{
-            console.log("Cancelando loop");
-            game.isGamePlaying = false;
+            playerSpaceShip.screenPosition.x += 2;
         }
+        // else{
+        //     console.log("Cancelando loop");
+        //     game.isGamePlaying = false;
+        // }
     },
 
     paint: () => {
