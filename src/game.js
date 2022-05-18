@@ -29,7 +29,7 @@ const game = {
     },
 
     loop: () => {
-        console.log("Loop rodando");
+        // console.log("Loop rodando");
         
         game.update();
         
@@ -90,21 +90,41 @@ const background = {
 }
 
 const playerSpaceShip = {
-    sourcePosition:{
-        x: 0, y:0,
-        height: 70, width:128
+    source:{
+        position: {
+            x: 0, y:0,
+            height: 70, width:128
+        },
+        frames:{
+            toLeft: {
+                x: 0, y:81,
+                height: 70, width:128
+            },
+            toTop: {
+                x: 28, y:302,
+                height: 128, width:67
+            },
+            toRight: {
+                x: 0, y:0,
+                height: 70, width:128
+            },
+            toBottom: {
+                x: 28, y:163,
+                height: 128, width:67
+            },
+        },
     },
     screenPosition:{
         x: 0, y: 0,
-        height: 70 * 0.5, width: 128 * 0.5
+        height: 70 * 0.5, width: 128 * 0.5,
     },
 
     speed: 4,
     currentMove: {
         toLeft: false,
+        toRight: false,
         toTop: false,
         toBottom: false,
-        toRight: false
     },
 
     changeCurrentMove: (keyPressed) => {
@@ -114,13 +134,13 @@ const playerSpaceShip = {
             case 65:// a
                 playerSpaceShip.currentMove.toLeft = isMoveStart;
                 break;
-            case 38:// ↑
-            case 87://  w
-                playerSpaceShip.currentMove.toTop = isMoveStart;
-                break;
             case 39:// →
             case 68://d
                 playerSpaceShip.currentMove.toRight = isMoveStart;
+                break;
+            case 38:// ↑
+            case 87://  w
+                playerSpaceShip.currentMove.toTop = isMoveStart;
                 break;
             case 40:// ↓ 
             case 83:// s
@@ -129,30 +149,62 @@ const playerSpaceShip = {
         }
     },
 
+    verifyPositionOnCanvas: () => {
+        let isBeforeBorderLeft, isBeforeBorderRight, isBeforeBorderTop, isBeforeBorderBottom;
+        let spaceShipParts = {
+            back: playerSpaceShip.screenPosition.x,
+            front: playerSpaceShip.screenPosition.x + playerSpaceShip.screenPosition.width,
+            top: playerSpaceShip.screenPosition.y,
+            bottom: playerSpaceShip.screenPosition.y + playerSpaceShip.screenPosition.height
+        }
+        
+        isBeforeBorderLeft = (spaceShipParts.back > 100);
+        isBeforeBorderRight = (spaceShipParts.front < 700);
+        isBeforeBorderTop = (spaceShipParts.top > 100);
+        isBeforeBorderBottom = (spaceShipParts.bottom < 300);
+
+        return {isBeforeBorderLeft, isBeforeBorderRight, isBeforeBorderTop, isBeforeBorderBottom}
+    },
+
     update: () => {
-        if(playerSpaceShip.currentMove.toLeft){
+        let {isBeforeBorderLeft, isBeforeBorderRight, isBeforeBorderTop, isBeforeBorderBottom} = playerSpaceShip.verifyPositionOnCanvas(); 
+
+        if(playerSpaceShip.currentMove.toLeft && isBeforeBorderLeft){
+            console.log("To Left -> ", isBeforeBorderLeft);
             playerSpaceShip.screenPosition.x -= playerSpaceShip.speed;
+            playerSpaceShip.source.position = playerSpaceShip.source.frames.toLeft;
         }
-        if(playerSpaceShip.currentMove.toTop){
-            playerSpaceShip.screenPosition.y -= playerSpaceShip.speed;
-        }
-        if(playerSpaceShip.currentMove.toBottom){
-            playerSpaceShip.screenPosition.y += playerSpaceShip.speed;
-        }
-        if(playerSpaceShip.currentMove.toRight){
+        if(playerSpaceShip.currentMove.toRight && isBeforeBorderRight){
+            console.log("To Right -> ", isBeforeBorderRight);
+
             playerSpaceShip.screenPosition.x += playerSpaceShip.speed;
+            playerSpaceShip.source.position = playerSpaceShip.source.frames.toRight;
         }
+        if(playerSpaceShip.currentMove.toTop && isBeforeBorderTop){
+            console.log("To Top -> ", isBeforeBorderTop);
+
+            playerSpaceShip.screenPosition.y -= playerSpaceShip.speed;
+            playerSpaceShip.source.position = playerSpaceShip.source.frames.toTop;
+        }
+        if(playerSpaceShip.currentMove.toBottom && isBeforeBorderBottom){
+            console.log("To Bottom -> ", isBeforeBorderBottom);
+
+            playerSpaceShip.screenPosition.y += playerSpaceShip.speed;
+            playerSpaceShip.source.position = playerSpaceShip.source.frames.toBottom;
+        }
+        playerSpaceShip.screenPosition.height = playerSpaceShip.source.position.height * 0.5;
+        playerSpaceShip.screenPosition.width = playerSpaceShip.source.position.width * 0.5;
     },
 
     paint: () => {
         game.context.drawImage(
             game.sprite,
-            playerSpaceShip.sourcePosition.x, playerSpaceShip.sourcePosition.y,
-            playerSpaceShip.sourcePosition.width, playerSpaceShip.sourcePosition.height,
+            playerSpaceShip.source.position.x, playerSpaceShip.source.position.y,
+            playerSpaceShip.source.position.width, playerSpaceShip.source.position.height,
             playerSpaceShip.screenPosition.x, playerSpaceShip.screenPosition.y,
             playerSpaceShip.screenPosition.width, playerSpaceShip.screenPosition.height,
         );
-    }
+    },
 }
 
 window.addEventListener('load', () => {
