@@ -1,48 +1,180 @@
 const game = {
 
-    frame: 0,
-    animationFrameId: 0,
-    isGamePlaying: false,
+    showHitBox: false,
 
+    errorMarginOn: true,
+
+    animationFrameId: 0,
+    
+    isGamePlaying: false,
+    
+    timePlayed: {
+        start: 0,
+        current: 0
+    },
+
+    score: 0,
+    
     initialize: () => {
         game.canvas = document.getElementById("canvasGame");
         game.context = game.canvas.getContext('2d');
         game.sprite = new Image();
         game.sprite.onload = () => {
             playerSpaceShip.screenPosition.y = (game.canvas.height * 0.5) - (playerSpaceShip.screenPosition.height/2);
-            game.isGamePlaying = true;
-            game.loop()
+            game.screen.initial.initialize();
+            game.screen.initial.loop();
         };
         game.sprite.src = "src/img/Sprites.png";
-        window.onkeydown = playerSpaceShip.changeCurrentMove;
-        window.onkeyup = playerSpaceShip.changeCurrentMove;
     },
+    
+    screen: {
+        initial: {
+            isActive: false,
 
-    update: () => {
-        background.update();
-        playerSpaceShip.update();
-        obstacleAsteroid.update();
-    },
+            initialize: () => {
+                game.screen.initial.isActive = true;
+                
+                playerSpaceShip.screenPosition.y = (game.canvas.height * 0.5) - (playerSpaceShip.screenPosition.height/2);
+                
+                window.onkeydown = (keyPressed) => {
+                    console.log("Tecla pressionada -", keyPressed.keyCode);
+                    if(keyPressed.keyCode == 13){
+                        game.screen.initial.isActive = false;
+                    }
+                };
+                
+            },
 
-    paint: () => {
-        game.context.clearRect(0, 0, 800, 400);
-        background.paint();
-        playerSpaceShip.paint();
-        obstacleAsteroid.paint();
-    },
+            update: () => {
+                if(playerSpaceShip.screenPosition.x < (game.canvas.width/2) - (playerSpaceShip.screenPosition.width/2)){
+                    playerSpaceShip.screenPosition.x += playerSpaceShip.speed * 2;
+                }
+                background.update();
+            },
 
-    loop: () => {
-        console.log("Loop rodando");
+            paint: () => {
+                game.context.clearRect(0, 0, 800, 400);
+                background.paint();
+                playerSpaceShip.paint();
+                if(!(playerSpaceShip.screenPosition.x < (game.canvas.width/2) - (playerSpaceShip.screenPosition.width/2))){    
+                    game.context.fillStyle = "#2296f3";
+                    game.context.textAlign = "center";
+                    game.context.font = "50px Orbitron";
+                    game.context.fillText("To Infity", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 53));
+                    game.context.fillText("and Beyond", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 3));
+
+                    game.context.fillStyle = "#D5D5FF";
+                    game.context.textAlign = "center";
+                    game.context.font = "20px Orbitron";
+                    game.context.fillText("Press ENTER to start", game.canvas.width/2, game.canvas.height/2 + (playerSpaceShip.screenPosition.height + 3));
+                }
+            },
+
+            loop: () =>{
+                console.log("Screen Initial - Loop rodando");
+
+                if(game.screen.initial.isActive){
+                    game.screen.initial.update();
+                    game.screen.initial.paint();
+    
+                    game.animationFrameId = requestAnimationFrame(game.screen.initial.loop);
+                }else{
+                    cancelAnimationFrame(game.animationFrameId);
+                    game.screen.play.initialize();
+                }
+            },
+        },
+
+        play: {
+            isActive: false,
+
+            initialize: () => {
+                game.timePlayed.start = new Date().getTime();
+                game.screen.play.isActive = true;
+                window.onkeydown = playerSpaceShip.changeCurrentMove;
+                window.onkeyup = playerSpaceShip.changeCurrentMove;
+                game.animationFrameId = requestAnimationFrame(game.screen.play.loop());
+            },
+
+            update: () => {
+                background.update();
+                playerSpaceShip.update();
+                obstacleAsteroid.update();
+            },
         
-        if(game.isGamePlaying){
-            game.update();
-            game.paint();
-            game.frame++;
-            game.animationFrameId = requestAnimationFrame(game.loop);
-        }else{
-            cancelAnimationFrame(game.animationFrameId);
+            paint: () => {
+                game.context.clearRect(0, 0, 800, 400);
+                background.paint();
+                playerSpaceShip.paint();
+                obstacleAsteroid.paint();
+            },
+
+            loop: () =>{
+                console.log("Screen Play - Loop rodando");
+        
+                if(game.screen.play.isActive){
+                    game.screen.play.update();
+                    game.screen.play.paint();
+                    game.screen.play.printScore();
+                    game.frame++;
+                    game.screen.play.isActive = !game.screen.play.detectColison();         
+                    game.animationFrameId = requestAnimationFrame(game.screen.play.loop);
+                }else{
+                    cancelAnimationFrame(game.animationFrameId);
+                    game.screen.game_over.initialize();
+                }
+            },
+
+            printScore: () => {
+                game.timePlayed.current = new Date().getTime();
+                game.score = Math.floor((game.timePlayed.current - game.timePlayed.start)/1000);
+        
+                game.context.fillStyle = "#D5D5FF";
+                game.context.font = "bold 20pt Orbitron";
+                game.context.fillText(game.score, 20, game.canvas.height - 20);
+            },
+        
+            detectColison: () => {
+                let errorMargin = 15 * game.errorMarginOn;
+                let spaceShipParts = {
+                    back: playerSpaceShip.screenPosition.x,
+                    front: playerSpaceShip.screenPosition.x + playerSpaceShip.screenPosition.width,
+                    top: playerSpaceShip.screenPosition.y,
+                    bottom: playerSpaceShip.screenPosition.y + playerSpaceShip.screenPosition.height
+                }
+                
+                for(asteroid of obstacleAsteroid.asteroidsRendered){
+                    let asteroidParts = {
+                        back: asteroid.x + errorMargin,
+                        front: asteroid.x + asteroid.width - errorMargin,
+                        top: asteroid.y + errorMargin,
+                        bottom: asteroid.y + asteroid.height - errorMargin
+                    }
+            
+                    if(spaceShipParts.back <= asteroidParts.front && spaceShipParts.front >= asteroidParts.back){
+                        if(spaceShipParts.top >= asteroidParts.top && spaceShipParts.top <= asteroidParts.bottom){
+                            console.log("Entrou no asteroide!");
+                            console.log("Nave:", spaceShipParts);
+                            console.log("Asteroide:", asteroidParts);
+                            return true;
+                        }
+                        if(spaceShipParts.bottom >= asteroidParts.top && spaceShipParts.bottom <= asteroidParts.bottom){
+                            console.log("Entrou no asteroide!");
+                            console.log("Nave:", spaceShipParts);
+                            console.log("Asteroide:", asteroidParts);
+                            return true;
+                        }
+                    }
+                }
+        
+                return false;
+            },
+        },
+        
+        game_over: {
+    
         }
-    }
+    },
 }
 
 const background = {
@@ -193,6 +325,13 @@ const playerSpaceShip = {
     },
 
     paint: () => {
+        if(game.showHitBox){
+            game.context.fillStyle = "#4444AA";
+            game.context.fillRect( 
+                playerSpaceShip.screenPosition.x, playerSpaceShip.screenPosition.y,
+                playerSpaceShip.screenPosition.width, playerSpaceShip.screenPosition.height
+            );
+        }
         game.context.drawImage(
             game.sprite,
             playerSpaceShip.source.position.x, playerSpaceShip.source.position.y,
@@ -206,8 +345,8 @@ const playerSpaceShip = {
 const obstacleAsteroid = {
     source:{
         position: {
-            x: 414, y:267,
-            height: 95, width:95
+            x: 423, y:178,
+            height: 78, width:76
         },
         frames:{
             comet: {
@@ -230,19 +369,34 @@ const obstacleAsteroid = {
     },
     asteroidsRendered:[
         {
-            x: 800, y: Math.random() * 200,
-            height: 95, width: 95,
+            x: 800, y: 200,
+            height: 78, width:76,
         },
         {
             x: 900, y: Math.random() * 200 + 150,
-            height: 95, width: 95,
+            height: 78, width:76,
         }
     ],
 
     speed: 2,
-
+    
+    update: () => {
+        obstacleAsteroid.generateAsteroids();
+        obstacleAsteroid.deleteAsteroids();
+        obstacleAsteroid.asteroidsRendered.forEach( (asteroid) => {
+            asteroid.x -= obstacleAsteroid.speed;
+        });
+    },
+    
     paint: () => {
         obstacleAsteroid.asteroidsRendered.forEach( (asteroid) => {
+            if(game.showHitBox){
+                game.context.fillStyle = "#AA0000";
+                game.context.fillRect(
+                    asteroid.x, asteroid.y,
+                    asteroid.width, asteroid.height,
+                );
+            }
             game.context.drawImage(
                 game.sprite,
                 obstacleAsteroid.source.position.x, obstacleAsteroid.source.position.y,
@@ -253,25 +407,17 @@ const obstacleAsteroid = {
         });
     },
 
-    update: () => {
-        obstacleAsteroid.generateAsteroids();
-        obstacleAsteroid.deleteAsteroids();
-        obstacleAsteroid.asteroidsRendered.forEach( (asteroid) => {
-            asteroid.x -= obstacleAsteroid.speed;
-        });
-    },
-
     generateAsteroids: () => {
         let lastAsteroidPostion = obstacleAsteroid.asteroidsRendered[obstacleAsteroid.asteroidsRendered.length-1].x;
-        if(lastAsteroidPostion <= 700){
+        if(lastAsteroidPostion <= 650){
             obstacleAsteroid.asteroidsRendered.push(
                 {
-                    x: 800, y: Math.random() * 200,
-                    height: 95, width: 95,
+                    x: 800, y: Math.random() * game.canvas.height/2,
+                    height: 78, width:76,
                 },
                 {
-                    x: 900, y: Math.random() * 200 + 150,
-                    height: 95, width: 95,
+                    x: 950, y: Math.random() * game.canvas.height/2 + 150,
+                    height: 78, width:76
                 }
             );
         }
