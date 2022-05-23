@@ -1,5 +1,6 @@
 const game = {
 
+    frame: 0,
     animationFrameId: 0,
     isGamePlaying: false,
 
@@ -18,23 +19,25 @@ const game = {
     },
 
     update: () => {
-        playerSpaceShip.update();
         background.update();
+        playerSpaceShip.update();
+        obstacleAsteroid.update();
     },
 
     paint: () => {
         game.context.clearRect(0, 0, 800, 400);
         background.paint();
         playerSpaceShip.paint();
+        obstacleAsteroid.paint();
     },
 
     loop: () => {
-        // console.log("Loop rodando");
-        
-        game.update();
+        console.log("Loop rodando");
         
         if(game.isGamePlaying){
+            game.update();
             game.paint();
+            game.frame++;
             game.animationFrameId = requestAnimationFrame(game.loop);
         }else{
             cancelAnimationFrame(game.animationFrameId);
@@ -102,7 +105,7 @@ const playerSpaceShip = {
             },
             toTop: {
                 x: 28, y:302,
-                height: 128, width:67
+                height: 128, width:68
             },
             toRight: {
                 x: 0, y:0,
@@ -119,7 +122,7 @@ const playerSpaceShip = {
         height: 70 * 0.5, width: 128 * 0.5,
     },
 
-    speed: 4,
+    speed: 3,
     currentMove: {
         toLeft: false,
         toRight: false,
@@ -158,10 +161,10 @@ const playerSpaceShip = {
             bottom: playerSpaceShip.screenPosition.y + playerSpaceShip.screenPosition.height
         }
         
-        isBeforeBorderLeft = (spaceShipParts.back > 100);
-        isBeforeBorderRight = (spaceShipParts.front < 700);
-        isBeforeBorderTop = (spaceShipParts.top > 100);
-        isBeforeBorderBottom = (spaceShipParts.bottom < 300);
+        isBeforeBorderLeft = (spaceShipParts.back > 0);
+        isBeforeBorderRight = (spaceShipParts.front < 800);
+        isBeforeBorderTop = (spaceShipParts.top > 0);
+        isBeforeBorderBottom = (spaceShipParts.bottom < 400);
 
         return {isBeforeBorderLeft, isBeforeBorderRight, isBeforeBorderTop, isBeforeBorderBottom}
     },
@@ -170,25 +173,18 @@ const playerSpaceShip = {
         let {isBeforeBorderLeft, isBeforeBorderRight, isBeforeBorderTop, isBeforeBorderBottom} = playerSpaceShip.verifyPositionOnCanvas(); 
 
         if(playerSpaceShip.currentMove.toLeft && isBeforeBorderLeft){
-            console.log("To Left -> ", isBeforeBorderLeft);
             playerSpaceShip.screenPosition.x -= playerSpaceShip.speed;
             playerSpaceShip.source.position = playerSpaceShip.source.frames.toLeft;
         }
         if(playerSpaceShip.currentMove.toRight && isBeforeBorderRight){
-            console.log("To Right -> ", isBeforeBorderRight);
-
             playerSpaceShip.screenPosition.x += playerSpaceShip.speed;
             playerSpaceShip.source.position = playerSpaceShip.source.frames.toRight;
         }
         if(playerSpaceShip.currentMove.toTop && isBeforeBorderTop){
-            console.log("To Top -> ", isBeforeBorderTop);
-
             playerSpaceShip.screenPosition.y -= playerSpaceShip.speed;
             playerSpaceShip.source.position = playerSpaceShip.source.frames.toTop;
         }
         if(playerSpaceShip.currentMove.toBottom && isBeforeBorderBottom){
-            console.log("To Bottom -> ", isBeforeBorderBottom);
-
             playerSpaceShip.screenPosition.y += playerSpaceShip.speed;
             playerSpaceShip.source.position = playerSpaceShip.source.frames.toBottom;
         }
@@ -207,7 +203,88 @@ const playerSpaceShip = {
     },
 }
 
+const obstacleAsteroid = {
+    source:{
+        position: {
+            x: 414, y:267,
+            height: 95, width:95
+        },
+        frames:{
+            comet: {
+                x: 421, y:0,
+                height: 78, width:78
+            },
+            whiteAteroid: {
+                x: 421, y:89,
+                height: 78, width:78
+            },
+            redAsteroid: {
+                x: 423, y:178,
+                height: 78, width:76
+            },
+            groupAsteroids: {
+                x: 414, y:267,
+                height: 95, width:95
+            },
+        },
+    },
+    asteroidsRendered:[
+        {
+            x: 800, y: Math.random() * 200,
+            height: 95, width: 95,
+        },
+        {
+            x: 900, y: Math.random() * 200 + 150,
+            height: 95, width: 95,
+        }
+    ],
+
+    speed: 2,
+
+    paint: () => {
+        obstacleAsteroid.asteroidsRendered.forEach( (asteroid) => {
+            game.context.drawImage(
+                game.sprite,
+                obstacleAsteroid.source.position.x, obstacleAsteroid.source.position.y,
+                obstacleAsteroid.source.position.width, obstacleAsteroid.source.position.height,
+                asteroid.x, asteroid.y,
+                asteroid.width, asteroid.height,
+            );
+        });
+    },
+
+    update: () => {
+        obstacleAsteroid.generateAsteroids();
+        obstacleAsteroid.deleteAsteroids();
+        obstacleAsteroid.asteroidsRendered.forEach( (asteroid) => {
+            asteroid.x -= obstacleAsteroid.speed;
+        });
+    },
+
+    generateAsteroids: () => {
+        let lastAsteroidPostion = obstacleAsteroid.asteroidsRendered[obstacleAsteroid.asteroidsRendered.length-1].x;
+        if(lastAsteroidPostion <= 700){
+            obstacleAsteroid.asteroidsRendered.push(
+                {
+                    x: 800, y: Math.random() * 200,
+                    height: 95, width: 95,
+                },
+                {
+                    x: 900, y: Math.random() * 200 + 150,
+                    height: 95, width: 95,
+                }
+            );
+        }
+    },
+
+    deleteAsteroids: () => {
+        let firstAsteroidFront = obstacleAsteroid.asteroidsRendered[0].x + obstacleAsteroid.asteroidsRendered[0].width;
+        if(firstAsteroidFront <= 0){
+            obstacleAsteroid.asteroidsRendered.shift();
+        }
+    },
+}
+
 window.addEventListener('load', () => {
     game.initialize();
 });
-
