@@ -22,7 +22,6 @@ const game = {
         game.sprite.onload = () => {
             playerSpaceShip.screenPosition.y = (game.canvas.height * 0.5) - (playerSpaceShip.screenPosition.height/2);
             game.screen.initial.initialize();
-            game.screen.initial.loop();
         };
         game.sprite.src = "src/img/Sprites.png";
     },
@@ -36,6 +35,8 @@ const game = {
                 
                 playerSpaceShip.screenPosition.y = (game.canvas.height * 0.5) - (playerSpaceShip.screenPosition.height/2);
                 
+                game.screen.initial.loop();
+
                 window.onkeydown = (keyPressed) => {
                     console.log("Tecla pressionada -", keyPressed.keyCode);
                     if(keyPressed.keyCode == 13){
@@ -93,7 +94,7 @@ const game = {
                 game.screen.play.isActive = true;
                 window.onkeydown = playerSpaceShip.changeCurrentMove;
                 window.onkeyup = playerSpaceShip.changeCurrentMove;
-                game.animationFrameId = requestAnimationFrame(game.screen.play.loop());
+                game.animationFrameId = requestAnimationFrame(game.screen.play.loop);
             },
 
             update: () => {
@@ -172,7 +173,44 @@ const game = {
         },
         
         game_over: {
-    
+            isActive: false,
+
+            initialize: () => {
+                game.screen.game_over.isActive = true;
+
+                game.context.fillStyle = "#FFAA00";
+                game.context.textAlign = "center";
+                game.context.font = "50px Orbitron";
+                game.context.fillText("Game Over", game.canvas.width/2, game.canvas.height/2);
+
+                game.context.fillStyle = "#D5D5FF";
+                game.context.textAlign = "center";
+                game.context.font = "20px Orbitron";
+                game.context.fillText("Press ENTER to try again", game.canvas.width/2, game.canvas.height/2 + 53);
+
+                window.onkeydown = (keyPressed) => {
+                    console.log("Tecla pressionada -", keyPressed.keyCode);
+                    if(keyPressed.keyCode == 13){
+                        game.screen.game_over.isActive = false;
+                        game.screen.game_over.resetValues();
+                        game.screen.initial.initialize();
+                    }
+                };
+            },
+
+            resetValues: () => {
+                playerSpaceShip.screenPosition.x = 0;
+                obstacleAsteroid.asteroidsRendered = [
+                    {
+                        x: 800, y: 200,
+                        height: 78, width:76,
+                    },
+                    {
+                        x: 900, y: Math.random() * 200 + 150,
+                        height: 78, width:76,
+                    }
+                ]
+            },
         }
     },
 }
