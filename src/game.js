@@ -14,6 +14,8 @@ const game = {
     },
 
     score: 0,
+    highScore: 0,
+    timesPlayed: 0,
     
     initialize: () => {
         game.canvas = document.getElementById("canvasGame");
@@ -61,7 +63,7 @@ const game = {
                     game.context.fillStyle = "#2296f3";
                     game.context.textAlign = "center";
                     game.context.font = "50px Orbitron";
-                    game.context.fillText("To Infity", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 53));
+                    game.context.fillText("To Infinity", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 53));
                     game.context.fillText("and Beyond", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 3));
 
                     game.context.fillStyle = "#D5D5FF";
@@ -117,6 +119,8 @@ const game = {
                     game.screen.play.update();
                     game.screen.play.paint();
                     game.screen.play.printScore();
+                    game.screen.play.printHighScore();
+                    game.screen.play.printTimesPlayed();
                     game.frame++;
                     game.screen.play.isActive = !game.screen.play.detectColison();         
                     game.animationFrameId = requestAnimationFrame(game.screen.play.loop);
@@ -135,6 +139,23 @@ const game = {
                 game.context.fillText(game.score, 20, game.canvas.height - 20);
             },
         
+            printHighScore: () => {
+                game.highScore = Math.max(game.score, game.highScore);
+                
+                game.context.fillStyle = "#d33f2f";
+                game.context.font = "bold 20pt Orbitron";
+                game.context.fillText("High Score: "+ game.highScore.toString(), 110, game.canvas.height - 360);
+
+            },
+
+            printTimesPlayed: () => {
+
+                game.context.fillStyle = "#2f2120";
+                game.context.font = "bold 14pt Orbitron";
+                game.context.fillText("Times Played: "+ game.timesPlayed.toString(), 90, game.canvas.height - 340);
+
+            },
+
             detectColison: () => {
                 let errorMargin = 15 * game.errorMarginOn;
                 let spaceShipParts = {
@@ -191,6 +212,7 @@ const game = {
                 window.onkeydown = (keyPressed) => {
                     console.log("Tecla pressionada -", keyPressed.keyCode);
                     if(keyPressed.keyCode == 13){
+                        game.timesPlayed++;
                         game.screen.game_over.isActive = false;
                         game.screen.game_over.resetValues();
                         game.screen.initial.initialize();
