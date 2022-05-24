@@ -239,6 +239,13 @@ const game = {
             },
 
             resetValues: () => {
+                for (const position in playerSpaceShip.currentMove) {
+                   if(position == "toLeft"){
+                       playerSpaceShip.currentMove[position] = true;
+                   }else{
+                       playerSpaceShip.currentMove[position] = false;
+                   }
+                }
                 playerSpaceShip.screenPosition.x = 0;
                 obstacleAsteroid.asteroidsRendered = [
                     {
