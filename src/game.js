@@ -60,16 +60,21 @@ const game = {
                 background.paint();
                 playerSpaceShip.paint();
                 if(!(playerSpaceShip.screenPosition.x < (game.canvas.width/2) - (playerSpaceShip.screenPosition.width/2))){    
-                    game.context.fillStyle = "#2296f3";
+                    game.context.fillStyle = "#00DAFF";
+                    game.context.strokeStyle = "#000";
                     game.context.textAlign = "center";
-                    game.context.font = "50px Orbitron";
-                    game.context.fillText("To Infinity", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 53));
-                    game.context.fillText("and Beyond", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 3));
+                    game.context.font = "600 50px Orbitron";
+                    game.context.fillText("To Infinity", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 55));
+                    game.context.fillText("and Beyond", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 5));
+                    game.context.strokeText("To Infinity", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 55));
+                    game.context.strokeText("and Beyond", game.canvas.width/2, game.canvas.height/2 - (playerSpaceShip.screenPosition.height + 5));
 
                     game.context.fillStyle = "#D5D5FF";
+                    game.context.strokeStyle = "#000";
                     game.context.textAlign = "center";
-                    game.context.font = "20px Orbitron";
+                    game.context.font = "600 21px Orbitron";
                     game.context.fillText("Press ENTER to start", game.canvas.width/2, game.canvas.height/2 + (playerSpaceShip.screenPosition.height + 3));
+                    game.context.strokeText("Press ENTER to start", game.canvas.width/2, game.canvas.height/2 + (playerSpaceShip.screenPosition.height + 3));
                 }
             },
 
@@ -135,24 +140,33 @@ const game = {
                 game.score = Math.floor((game.timePlayed.current - game.timePlayed.start)/1000);
         
                 game.context.fillStyle = "#D5D5FF";
-                game.context.font = "bold 20pt Orbitron";
-                game.context.fillText(game.score, 20, game.canvas.height - 20);
+                game.context.strokeStyle = "#000";
+                game.context.textAlign = "left";
+                game.context.font = "800 28px Orbitron";
+                game.context.fillText("Score: " + game.score, 20, game.canvas.height - 20);
+                game.context.strokeText("Score: " + game.score, 20, game.canvas.height - 20);
             },
         
             printHighScore: () => {
                 game.highScore = Math.max(game.score, game.highScore);
                 
-                game.context.fillStyle = "#d33f2f";
-                game.context.font = "bold 20pt Orbitron";
-                game.context.fillText("High Score: "+ game.highScore.toString(), 110, game.canvas.height - 360);
+                game.context.fillStyle = "#FF8E56";
+                game.context.strokeStyle = "#000";
+                game.context.textAlign = "left";
+                game.context.font = "800 22px Orbitron";
+                game.context.fillText("High Score: "+ game.highScore.toString(), 20, 40);
+                game.context.strokeText("High Score: "+ game.highScore.toString(), 20, 40);
 
             },
 
             printTimesPlayed: () => {
 
-                game.context.fillStyle = "#2f2120";
-                game.context.font = "bold 14pt Orbitron";
-                game.context.fillText("Times Played: "+ game.timesPlayed.toString(), 90, game.canvas.height - 340);
+                game.context.fillStyle = "#FBEDEC";
+                game.context.strokeStyle = "#000";
+                game.context.textAlign = "left";
+                game.context.font = "bold 22px Orbitron";
+                game.context.fillText("Times Played: "+ game.timesPlayed.toString(), 20, 70);
+                game.context.strokeText("Times Played: "+ game.timesPlayed.toString(), 20, 70);
 
             },
 
@@ -200,14 +214,18 @@ const game = {
                 game.screen.game_over.isActive = true;
 
                 game.context.fillStyle = "#FFAA00";
+                game.context.strokeStyle = "#000";
                 game.context.textAlign = "center";
-                game.context.font = "50px Orbitron";
+                game.context.font = "600 50px Orbitron";
                 game.context.fillText("Game Over", game.canvas.width/2, game.canvas.height/2);
+                game.context.strokeText("Game Over", game.canvas.width/2, game.canvas.height/2);
 
                 game.context.fillStyle = "#D5D5FF";
+                game.context.strokeStyle = "#000";
                 game.context.textAlign = "center";
-                game.context.font = "20px Orbitron";
+                game.context.font = "600 21px Orbitron";
                 game.context.fillText("Press ENTER to try again", game.canvas.width/2, game.canvas.height/2 + 53);
+                game.context.strokeText("Press ENTER to try again", game.canvas.width/2, game.canvas.height/2 + 53);
 
                 window.onkeydown = (keyPressed) => {
                     console.log("Tecla pressionada -", keyPressed.keyCode);
