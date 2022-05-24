@@ -239,13 +239,9 @@ const game = {
             },
 
             resetValues: () => {
-                for (const position in playerSpaceShip.currentMove) {
-                   if(position == "toLeft"){
-                       playerSpaceShip.currentMove[position] = true;
-                   }else{
-                       playerSpaceShip.currentMove[position] = false;
-                   }
-                }
+                playerSpaceShip.source.position = playerSpaceShip.source.frames.toRight;
+                playerSpaceShip.screenPosition.height = playerSpaceShip.source.position.height * 0.5;
+                playerSpaceShip.screenPosition.width = playerSpaceShip.source.position.width * 0.5;
                 playerSpaceShip.screenPosition.x = 0;
                 obstacleAsteroid.asteroidsRendered = [
                     {
@@ -312,31 +308,31 @@ const background = {
 const playerSpaceShip = {
     source:{
         position: {
-            x: 0, y:0,
-            height: 70, width:128
+            x: 278, y:0,
+            height: 101, width:94
         },
         frames:{
             toLeft: {
-                x: 0, y:81,
-                height: 70, width:128
+                x: 278, y:112,
+                height: 101, width:94
             },
             toTop: {
-                x: 28, y:302,
-                height: 128, width:68
+                x: 278, y:331,
+                height: 94, width:101
             },
             toRight: {
-                x: 0, y:0,
-                height: 70, width:128
+                x: 278, y:0,
+                height: 101, width:94
             },
             toBottom: {
-                x: 28, y:163,
-                height: 128, width:67
+                x: 278, y:225,
+                height: 94, width:101
             },
         },
     },
     screenPosition:{
         x: 0, y: 0,
-        height: 70 * 0.5, width: 128 * 0.5,
+        height: 101 * 0.5, width: 94 * 0.5,
     },
 
     speed: 3,
