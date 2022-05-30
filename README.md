@@ -1,8 +1,8 @@
-![Arte digital contendo o nome do projeto, "To Infinity and Beyond", ao centro em letras grandes, abaixo dele existe um ícone de um OVNI e um ícone de um asteroide. A arte tem fundo estrelado.][banner]
+![Arte digital contendo o nome do projeto, "To Infinity and Beyond".][banner-img]
 
 <!--Tecnologias Utilizadas e suas versões-->
 
-[![PHP Version][html-badge]][html5-doc] [![JavaScript - EcmaScript Version][js-badge]][js-doc]
+[![HTML 5][html-badge]][html5-doc] [![JavaScript - EcmaScript Version][js-badge]][js-doc]
 
 > Status: :factory: Em desenvolvimento
 
@@ -62,7 +62,7 @@ Se você tem alguma ideia, sugestão, ou viu algum erro, você pode me contar [a
 
 <!---Links utilizados no documento-->
 
-[banner]: (https://github.com/GustavoHerreroNunes/to-infinity-and-beyond/blob/main/src/img/Banner.png)
+[banner-img]: (https://github.com/GustavoHerreroNunes/to-infinity-and-beyond/blob/main/src/img/Banner.png)
 
 [js-badge]: https://img.shields.io/static/v1?label=&message=ES6&color=gray&style=for-the-badge&logo=JavaScript
 [js-doc]: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript
