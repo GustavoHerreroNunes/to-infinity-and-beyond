@@ -62,7 +62,7 @@ Se você tem alguma ideia, sugestão, ou viu algum erro, você pode me contar [a
 
 <!---Links utilizados no documento-->
 
-[banner-img]: (https://github.com/GustavoHerreroNunes/to-infinity-and-beyond/blob/main/src/img/Banner.png)
+[banner-img]: https://github.com/GustavoHerreroNunes/to-infinity-and-beyond/blob/main/src/img/Banner.png
 
 [js-badge]: https://img.shields.io/static/v1?label=&message=ES6&color=gray&style=for-the-badge&logo=JavaScript
 [js-doc]: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript
