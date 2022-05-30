@@ -1,4 +1,4 @@
-![Arte digital contendo o nome do projeto, "To Infinity and Beyond".][banner-img]
+![Arte digital contendo o nome do projeto, "To Infinity and Beyond", ao centro em letras grandes, abaixo dele existe um ícone de um OVNI e um ícone de um asteroide. A arte tem fundo estrelado.][banner-img]
 
 <!--Tecnologias Utilizadas e suas versões-->
 
