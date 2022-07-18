@@ -12,7 +12,7 @@
 
 :cd: [Funcionalidades](#funcionalidades-gear)    
 
-<!-- :cd: [Deploy](#deploy-satellite)  -->
+:cd: [Deploy](#deploy-video_game) 
 
 :cd: [Contribuir](#contribuir-gift) 
 
@@ -25,7 +25,7 @@ To Infinity and Beyond é um game em JavaScript, que utiliza o elemento do HTML5
 </p>
 
 ## Funcionalidades :gear:
-> Quer mais detalhes sobre como está o desenvolvimento deste projeto? [Clique aqui][tarefas]
+<!-- > Quer mais detalhes sobre como está o desenvolvimento deste projeto? [Clique aqui][tarefas] -->
 
 - Transição entre telas
     - Start, Playing, Game Over
@@ -47,13 +47,10 @@ To Infinity and Beyond é um game em JavaScript, que utiliza o elemento do HTML5
 - Registra o número de partidas jogadas na sessão atual
 
 
-<!-- ## Deploy :satellite: -->
+## Deploy :video_game:
+> Publicado no Github Pages :octocat: 
 
-<!--Layout ou link para o Deploy da aplicação-->
-
-<!-- > Venha jogar e depois me diga o que achou! :video_game:
-
-https\\\\:www.toinfinityandbeyond.com.br -->
+Você pode jogar a última versão em funcionamento do projeto aqui: https://bityli.com/tJOKiz
 
 
 ## Contribuir :gift:
