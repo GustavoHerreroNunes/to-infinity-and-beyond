@@ -4,11 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="./src/styles/index.css">
     <title>To Infinity and Beyond</title>
 </head>
 <body>
-    <canvas id="canvasGame" width="800px" height="400px"></canvas>
+    <section class="container py-5">
+        <canvas class="mx-auto" id="canvasGame" width="800px" height="400px"></canvas>
+    </section>
+    <section class="container-flex pt-5" id="howToPlay">
+        <h1 class="text-center">Como jogar</h1>
+        <div class="container d-flex justify-content-around">
+            <article class="instructions">
+                <h5>Controle sua nave com:</h5>
+                <ul>
+                    <li><img src="./src/img/howToPlay/wasd.png" alt="Ícones representando as teclas 'w', 'a', 's', 'd' do teclado" /> ou</li>
+                    <li><img src="./src/img/howToPlay/arrows.png" alt="Ícones representando as teclas '↑', '←', '↓', '→' do teclado" /></li>
+                </ul>
+            </article>
+            <h3>&</h3>
+            <article class="instructions">
+                <h5>Mecânicas:</h5>
+                <ul>
+                    <li>
+                        Colidir com asteroides destrói sua nave
+                        <img src="./src/img/howToPlay/meteorite.png" alt="Ícone de Asteroide" />
+                    </li>
+                    <li>
+                        <img src="./src/img/howToPlay/clock.png" alt="Ícone de Relógio" />
+                        Você ganha pontos pelo tempo que sobrevive
+                    </li>
+                </ul>
+            </article>
+        </div>
+    </section>
+    <section class="container-flex pt-5" id="about">
+        <h1>Sobre</h1>
+        <p>
+            Este game foi desenvolvido como uma atividade avaliativa pelo aluno Gustavo Herrero Nunes, 
+            na turma de graduação (bacharelado) à distância em Sistemas de Informação, na FIAP
+            (Faculdade de Informática e Administração Paulista) - Unidade Aclimação.
+        </p>
+        <p>
+            O objetivo era praticar as habilidades em Javascript vanilla (sem frameworks ou libs) para
+            o desenvolvimento de um canvas-game de uma nave espacial desviando de asteroides.
+        </p>
+    </section>
+    <section class="container-flex d-flex justify-content-around pt-5">
+        <article class="d-inline">
+            <h5>Desenvolvedor:</h5>
+            <a href="">Gustavo Herrero Nunes</a>
+            
+        </article>
+    </section>
+    
+    
     <script src="./src/game.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -6,7 +6,16 @@
 
 canvas{
     display: block;
-    margin: auto;
-    margin-top: 50px;
     border: 2px solid black;
+}
+
+#howToPlay{
+    background-color: #36afad;
+}
+
+.instructions{
+    max-width: 20rem;
+    background-color: white;
+    border-radius: 25px;
+    padding: 30px;
 }
