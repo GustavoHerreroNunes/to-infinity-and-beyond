@@ -1,7 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 
 *{
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4{
     font-family: 'Orbitron', sans-serif;
+}
+
+h5{
+    font-weight: 600;
+}
+
+p{
+    font-size: 1.17rem;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 1.17rem;
 }
 
 canvas{
@@ -11,11 +32,40 @@ canvas{
 
 #howToPlay{
     background-color: #36afad;
+    color: white;
 }
 
 .instructions{
     max-width: 20rem;
     background-color: white;
+    color: #333333;
     border-radius: 25px;
     padding: 30px;
+}
+
+#about {
+    background-color: #fdbd40;
+    color: #394d5c;
+}
+#about a{
+    color: #0004FC;
+}
+#about a:hover{
+    color: #000399;
+}
+
+footer{
+    background-color: #394d5c;
+    color: white;
+}
+footer a{
+    color: #76FFFB;
+}
+footer a.socialMediaIcon{
+    text-decoration: none;
+    margin-right: 6px;
+}
+
+footer a:hover{
+    color: #64D9D5;
 }
