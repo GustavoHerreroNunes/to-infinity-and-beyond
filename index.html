@@ -14,25 +14,26 @@
     </section>
     <section class="container-flex pt-5" id="howToPlay">
         <h1 class="text-center">Como jogar</h1>
-        <div class="container d-flex justify-content-around">
+        <div class="container d-flex justify-content-evenly">
             <article class="instructions">
-                <h5>Controle sua nave com:</h5>
-                <ul>
-                    <li><img src="./src/img/howToPlay/wasd.png" alt="Ícones representando as teclas 'w', 'a', 's', 'd' do teclado" /> ou</li>
-                    <li><img src="./src/img/howToPlay/arrows.png" alt="Ícones representando as teclas '↑', '←', '↓', '→' do teclado" /></li>
+                <h5 class="text-center">Controle sua nave com:</h5>
+                <ul class="d-flex flex-column h-100 justify-content-evenly">
+                    <li><img src="./src/img/howToPlay/wasd.png" alt="Ícones representando as teclas 'w', 'a', 's', 'd' do teclado" width="100px" /></li>
+                    <li class="align-self-center">ou</li>
+                    <li class="align-self-end"><img src="./src/img/howToPlay/arrows.png" alt="Ícones representando as teclas '↑', '←', '↓', '→' do teclado" width="100px" /></li>
                 </ul>
             </article>
             <h3 class="align-self-center">&</h3>
             <article class="instructions">
-                <h5>Mecânicas:</h5>
-                <ul>
-                    <li>
-                        Colidir com asteroides destrói sua nave
+                <h5 class="text-center">Mecânicas:</h5>
+                <ul class="d-flex flex-column h-100 justify-content-evenly">
+                    <li class="d-flex align-items-start">
+                        <span class="text-end">Colidir com asteroides destrói sua nave</span>
                         <img src="./src/img/howToPlay/meteorite.png" alt="Ícone de Asteroide" />
                     </li>
-                    <li>
+                    <li class="d-flex align-items-start">
                         <img src="./src/img/howToPlay/clock.png" alt="Ícone de Relógio" />
-                        Você ganha pontos pelo tempo que sobrevive
+                        <span>Você ganha pontos pelo tempo que sobrevive</span>
                     </li>
                 </ul>
             </article>

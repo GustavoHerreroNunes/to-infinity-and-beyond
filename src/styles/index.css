@@ -6,11 +6,7 @@
     font-family: 'Lato', sans-serif;
 }
 
-h1, h2, h3, h4{
-    font-family: 'Orbitron', sans-serif;
-}
-
-h5{
+h1, h2, h3, h4, h5, h6{
     font-weight: 600;
 }
 
@@ -22,7 +18,7 @@ ul{
     list-style-type: none;
     margin: 0;
     padding: 0;
-    font-size: 1.17rem;
+    font-size: 1.13rem;
 }
 
 canvas{
@@ -36,11 +32,13 @@ canvas{
 }
 
 .instructions{
-    max-width: 20rem;
+    width: 18rem;
+    height: 22rem;
     background-color: white;
     color: #333333;
-    border-radius: 25px;
-    padding: 30px;
+    border-radius: 15px;
+    padding: 25px;
+    padding-bottom: 30px;
 }
 
 #about {
