@@ -7,7 +7,7 @@ const game = {
     animationFrameId: 0,
     
     isGamePlaying: false,
-    
+        
     timePlayed: {
         start: 0,
         current: 0
@@ -355,10 +355,12 @@ const playerSpaceShip = {
                 playerSpaceShip.currentMove.toRight = isMoveStart;
                 break;
             case 38:// ↑
+                keyPressed.preventDefault();
             case 87://  w
                 playerSpaceShip.currentMove.toTop = isMoveStart;
                 break;
             case 40:// ↓ 
+                keyPressed.preventDefault();
             case 83:// s
                 playerSpaceShip.currentMove.toBottom = isMoveStart;
                 break;
