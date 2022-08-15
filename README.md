@@ -4,7 +4,7 @@
 
 [![HTML 5][html-badge]][html5-doc] [![JavaScript - EcmaScript Version][js-badge]][js-doc]
 
-> Status: :factory: Em desenvolvimento
+> Status: :white_check_mark: Concluído
 
 ## Indíce :bookmark_tabs:
 
@@ -16,7 +16,9 @@
 
 :cd: [Contribuir](#contribuir-gift) 
 
-:cd: [Licença](#licença-notebook_with_decorative_cover)
+:cd: [Créditos](#créditos-clapper) 
+
+<!-- :cd: [Licença](#licença-notebook_with_decorative_cover) -->
 
 ## Descrição :clipboard:
 
@@ -57,6 +59,23 @@ Você pode jogar a última versão em funcionamento do projeto aqui: https://bit
 
 Se você tem alguma ideia, sugestão, ou viu algum erro, você pode me contar [aqui (Issues)][issues].
 
+## Créditos :clapper:   
+
+Um agradecimento à todos que ajudaram na construção desse projeto, em especial à:
+
+### Código
+
+- [Guilherme Viero Lopes][guilherme-github-profile]
+
+### Ícones e Imagens
+
+- [Background by Freepik][background-freepik]
+- [Space by Freepik - Flaticon][space-flaticon]
+- [Spaceship by smalllikeart - Flaticon][spaceship-flaticon]
+- [Hour by Kirill Kazachek - Flaticon][hour-flaticon]
+- [Arrows by Freepik - Flaticon][arrows-flaticon]
+- [Letters 'w', 'a', 's', 'd' by Ersin Çelik - Flaticon][letter-flaticon]
+
 <!---Links utilizados no documento-->
 
 [banner-img]: https://github.com/GustavoHerreroNunes/to-infinity-and-beyond/blob/main/src/img/Banner.png
@@ -67,6 +86,18 @@ Se você tem alguma ideia, sugestão, ou viu algum erro, você pode me contar [a
 [html-badge]:https://img.shields.io/static/v1?label=&message=html&color=gray&style=for-the-badge&logo=html5
 [html5-doc]: https://developer.mozilla.org/en-US/docs/Glossary/HTML5
 
-[tarefas]: https://github.com/GustavoHerreroNunes/to-infinity-and-beyond/projects
-
 [issues]: https://github.com/GustavoHerreroNunes/to-infinity-and-beyond/issues
+
+[guilherme-github-profile]: https://github.com/guiviero
+
+[background-freepik]: https://br.freepik.com/fotos-vetores-gratis/padroes
+
+[space-flaticon]: https://www.flaticon.com/free-icons/spaces
+
+[spaceship-flaticon]: https://www.flaticon.com/free-icons/spaceships
+
+[hour-flaticon]: https://www.flaticon.com/free-icons/hour
+
+[arrows-flaticon]: https://www.flaticon.com/free-icons/arrow
+
+[letter-flaticon]: https://www.flaticon.com/free-icons/shapes-and-symbols
