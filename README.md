@@ -52,7 +52,7 @@ To Infinity and Beyond é um game em JavaScript, que utiliza o elemento do HTML5
 ## Deploy :video_game:
 > Publicado no Github Pages :octocat: 
 
-Você pode jogar a última versão em funcionamento do projeto aqui: https://bityli.com/tJOKiz
+Você pode jogar a última versão em funcionamento do projeto aqui: [To infinity and beyond - Website][deploy-link]
 
 
 ## Contribuir :gift:
@@ -85,6 +85,8 @@ Um agradecimento à todos que ajudaram na construção desse projeto, em especia
 
 [html-badge]:https://img.shields.io/static/v1?label=&message=html&color=gray&style=for-the-badge&logo=html5
 [html5-doc]: https://developer.mozilla.org/en-US/docs/Glossary/HTML5
+
+[deploy-link]: https://gustavoherreronunes.github.io/to-infinity-and-beyond/
 
 [issues]: https://github.com/GustavoHerreroNunes/to-infinity-and-beyond/issues
 
