@@ -33,8 +33,8 @@ To Infinity and Beyond é um game em JavaScript, que utiliza o elemento do HTML5
     - Start, Playing, Game Over
 
 - Controle da nave pelo teclado
-    - ↑ ← ↓ →
-    - w a s d
+    - <kbd>↑</kbd> <kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd>
+    - <kbd>w</kbd> <kbd>a</kbd> <kbd>s</kbd> <kbd>d</kbd>
 
 - Geração aleatória de obstáculos
     -  Asteroide vermelho
